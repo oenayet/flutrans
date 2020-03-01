@@ -9,13 +9,16 @@ class MyApp extends StatefulWidget {
   _MyAppState createState() => new _MyAppState();
 }
 
+final String clientID = "SB-Mid-client-6bYid__b2jLyX20n";
+final String paymentURL = "https://dev-phoneix.recharge.id/recharge_backend_laravel_v2/public/v1.0.0/payment/topupcallback/";
+
 class _MyAppState extends State<MyApp> {
   bool isMakePayment = false;
   final flutrans = Flutrans();
   @override
   void initState() {
     super.initState();
-    flutrans.init("YOUR_CLIENT_ID", "YOUR_URL_BASE");
+    flutrans.init(clientID,paymentURL);
     flutrans.setFinishCallback(_callback);
   }
 
@@ -38,8 +41,13 @@ class _MyAppState extends State<MyApp> {
                 )
               ],
               skipCustomer: true,
-              customField1: "ANYCUSTOMFIELD"),
+              customField1: "ANYCUSTOMFIELD",
+              //customField1: "DummyCustomField",
+              saveCard: true,
+              paymentMethod: 1,
+              id: '423432'),
         )
+
         .catchError((err) => print("ERROR $err"));
   }
 
